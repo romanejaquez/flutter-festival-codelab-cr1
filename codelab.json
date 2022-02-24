@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-02-23T23:04:47-05:00",
+  "id": "flutter-festival-codelab-cr1",
+  "duration": 0,
+  "title": "Flutter Festival Codelab / Coding Roulette: Full Stack Flutter Apps Workshop",
+  "authors": "Roman Jaquez",
+  "summary": "Flutter Festival Codelab / Coding Roulette #3",
+  "source": "flutter-festival-codelab-cr1.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "flutter"
+  ],
+  "tags": [
+    "flutter"
+  ],
+  "feedback": "https://romanjustcodes.web.app",
+  "url": "flutter-festival-codelab-cr1"
+}

@@ -1,0 +1,1307 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter Festival Codelab / Coding Roulette: Full Stack Flutter Apps Workshop</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="flutter-festival-codelab-cr1"
+                  title="Flutter Festival Codelab / Coding Roulette: Full Stack Flutter Apps Workshop"
+                  environment="web"
+                  feedback-link="https://romanjustcodes.web.app">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 is-upgraded>What You&#39;ll Build in this Workshop:</h2>
+<ul>
+<li>A well-architected full-stack Flutter Application for the GDG Community, consisting of the following screens:</li>
+<li>Splash Page</li>
+<li>Landing Page</li>
+<li>Community Page</li>
+</ul>
+<p>We will add the following features by implementing a serverless backend powered by Firebase:</p>
+<ul>
+<li>Pull data from Firebase Cloud Firestore</li>
+<li>Implement real-time updates (sending / receiving)</li>
+</ul>
+<p>You will also learn about the following:</p>
+<ul>
+<li>Create Flutter User interfaces with ease</li>
+<li>Common Flutter Layout strategies using just core widgets</li>
+<li>Creating custom Flutter widgets and achieve widget composition</li>
+<li>Using Material Icon fonts</li>
+</ul>
+<p class="image-container"><img alt="Full Application" src="img/516d5c9ba6260787.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pre-requisites" duration="0">
+        <ul>
+<li>A computer with a browser</li>
+<li>An internet connection</li>
+</ul>
+<aside class="special"><p>We&#39;ll be using <a href="https://dartpad.dev/" target="_blank">DartPad</a>, a web-based, open-source tool that offers an online playground for learning Dart and Flutter. For more info, visit <a href="https://dart.dev/tools/dartpad" target="_blank">this link</a>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Launching DartPad" duration="0">
+        <p><a href="https://dartpad.dev/" target="_blank">DartPad</a> will be our Flutter development editor, so let&#39;s set it up for that.</p>
+<p>First, go to a browser and launch <a href="https://dartpad.dev/" target="_blank">dartpad.dev</a>. Your browser should look as follows:</p>
+<p class="image-container"><img alt="DartPad on the Web" src="img/864504f137532d7c.png"></p>
+<h2 is-upgraded>Setting up DartPad for Flutter Development</h2>
+<p>By default, DartPad is set up for Dart development. For Flutter development, do the following steps:</p>
+<ul>
+<li>From the top menu, select <strong>New Pad</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Select New Pad" src="img/1f549a3175199a60.png"></p>
+<ul>
+<li>If prompted to discard changes of the current pad, click <strong>OK</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Create New Pad" src="img/e78af321bbfdae09.png"></p>
+<ul>
+<li>From the <strong>New Pad</strong> dialog, select <strong>Flutter</strong>. Click <strong>Create</strong>.</li>
+</ul>
+<p class="image-container"><img alt="Select Flutter" src="img/236c1c1004b65cd2.png"></p>
+<p>You should be all set! Now you&#39;re ready to start coding in Flutter right from your browser. If you hit the <strong>Run</strong> button, you will see the generated output on the right panel.</p>
+<p class="image-container"><img alt="Select Flutter" src="img/2f5f9922e4dd8ade.png"></p>
+<p>Are you ready? Let&#39;s go to the next step!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your Firebase Project" duration="0">
+        <p>We&#39;ll create our very own first Firebase project, where we&#39;ll set up the serverless backend that will power this application.</p>
+<p>Open a browser tab and navigate to the <a href="https://console.firebase.google.com/" target="_blank">Firebase Console</a>, where you&#39;ll create your first Firebase project under the free tier (called Spark) - no worries, you won&#39;t be charged or asked for a credit card.</p>
+<p>You&#39;ll be asked to log in with your Gmail account. Go ahead and provide it so you an log in.</p>
+<p>On the Firebase Console&#39;s landing page, click on the <strong>Create a Project</strong> button:</p>
+<p class="image-container"><img alt="Login Screen" src="img/8795a75e9db8ab46.png"></p>
+<p>Immediately you get presented with a wizard, asking you for a project name. Enter &#34;gdg-community-app&#34;. Accept the Firebase Terms and hit <strong>Continue</strong>:</p>
+<p class="image-container"><img alt="Login Screen" src="img/c49133ec91226eb.png"></p>
+<p>Next steps asks for enabling Google Analytics for your project. Let&#39;s disable it for now by just unchecking the <strong>Enable Google Analytics for this project</strong> toggle - we don&#39;t need it for this project. Then click on <strong>Create Project</strong>:</p>
+<p class="image-container"><img alt="Login Screen" src="img/8c680569ab440c2c.png"></p>
+<p>Be patient as Firebase is provisioning your project on the Google Cloud, so you&#39;ll get shown the following screen for a bit:</p>
+<p class="image-container"><img alt="Login Screen" src="img/ebc6461f3b5b2564.png"></p>
+<p>Until the project is fully created, then you can click on <strong>Continue</strong>:</p>
+<p class="image-container"><img alt="Login Screen" src="img/41077b1741438e99.png"></p>
+<p>Your brand new project should look like follows:</p>
+<p class="image-container"><img alt="Login Screen" src="img/392ee15874da8065.png"></p>
+<p>Notice that you are on the Free Tier (Spark), with the option to Upgrade to Blaze (Pay-As-You-Go), but for the things we&#39;ll implement we don&#39;t have to upgrade:</p>
+<p class="image-container"><img alt="Login Screen" src="img/69d29808a0d2ac64.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set Up Firebase Cloud Firestore" duration="0">
+        <p><a href="https://firebase.google.com/products/firestore" target="_blank">Cloud Firestore</a> Firestore is a flexible, scalable NoSQL cloud database to store and sync data. It keeps your data in sync across client apps through realtime listeners and offers offline support so you can build responsive apps that work regardless of network latency or Internet connectivity. It is built on top of Google&#39;s storage infrastructure, with multi-regional support and strong consistency.</p>
+<p>Firestore stores data within &#34;documents&#34;, which are contained within &#34;collections&#34;. Documents can also contain nested collections, thus allowing you to build hierarchies to store related data and easily retrieve the data you need using expressive queries. All queries scale with the size of your result set (note: not your data set), so your app is ready to scale from day one.</p>
+<p>Fire up our Firebase Console, and right at the homepage, use the left navigation to locate the <strong>Firestore Database</strong> link. The <strong>Cloud Firestore</strong> page shows. Click on <strong>Create database</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/ecb2823dd81e247d.png"></p>
+<p>A dialog appears to set the security rules for your database. Make sure you select the option <strong>Start in Test Mode</strong> which means after 30 days you won&#39;t be able to access the data in Firebase unless you update the rules. We&#39;ll show this later in the codelab. Click <strong>Next</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/2e22ac3195228007.png"></p>
+<p>Next step asks you you define the location where your Cloud Firestore database will be provisioned; keep the default (us-central). Click <strong>Enable</strong> to proceed:</p>
+<p class="image-container"><img alt="Main Screen" src="img/ed766ecc79a89e1d.png"></p>
+<p>Firebase then provisions your database for a few seconds:</p>
+<p class="image-container"><img alt="Main Screen" src="img/59cef24515f6d71.png"></p>
+<p>And then Cloud Firestore is ready to go! Now, let&#39;s add some data to it, shall we?</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setting up initial data in Firebase Cloud Firestore" duration="0">
+        <p>We mentioned earlier the concept of <strong>documents</strong> and <strong>collections</strong> which are the core data structures in which Firestore organizes data.</p>
+<p>You always start with a <strong>collection</strong> in Firestore, which will hold one or more <strong>documents</strong>. Let&#39;s start by adding our first collection, called <strong>team</strong>. Click on <strong>Start Collection</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/159b5f8b25160264.png"></p>
+<p>In the dialog that appears, type the name of your collection (team); hit <strong>Next</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a8a999ee31ef0632.png"></p>
+<p>At this point you are required to add your first document, as collections are nothing without documents. Collections are nothing more than containers of documents. As the unique identifier for our first document, use the <strong>Auto-ID</strong> feature available on the Document ID field.</p>
+<p class="image-container"><img alt="Main Screen" src="img/3c263b3e0dc953d5.png"></p>
+<aside class="special"><p>This collection <strong>team</strong> will hold a unique document per user, and each document can be referenced by their unique UID, or queried by its internal properties. More on this in a bit.</p>
+</aside>
+<p>Once the auto-id is populated, it is time to add some fields to this document. Fields are nothing more than key-value pair entries in a document, and they can be one of many times (i.e. string, number, boolean, map, array (different from a collection), etc.). Feel free to explore on your own; we&#39;ll explore a few of those as we make progress.</p>
+<p>We&#39;ll be creating a document per team member, with the following fields:</p>
+<ul>
+<li>fullName: type string</li>
+<li>photoUrl: type string; the url corresponding to their picture</li>
+<li>title: type string; representing their title in the team</li>
+</ul>
+<p>Your document should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/35455ac1f5171f9a.png"></p>
+<p>Verify, then hit Save. Your newly created document should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/45693b8ee52ecbaf.png"></p>
+<p>Repeat this action for as many team members as you have. I&#39;ll add two more documents with other two team members.</p>
+<p>With the collection already created, and one document inserted, you can use the provided <strong>Add Document</strong> button in the middle column corresponding to the documents under the selected collection, as shown below:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a0fee0c667f170b9.png"></p>
+<p>After adding the documents, you should end up with as many documents you added (3 in my case), and when you select one, you should see its fields on the rightmost column:</p>
+<p class="image-container"><img alt="Main Screen" src="img/fe5f71d711fb22d5.png"></p>
+<h2 is-upgraded>Recap on the Document / Collection relationship</h2>
+<ul>
+<li>As mentioned before, a document can have nested collections, but a document cannot have another document directly underneaht it; it must live within a collection. Collections are empty vessels that hold documents, and facilitate grouping of documents and querying for related documents.</li>
+<li>Hence the reason why we made a collection called <strong>teams</strong>, with unique documents (one per team member) which in turn can have either have fields (key-value pairs of data) or more nested collections, and so on.</li>
+</ul>
+<p>Now that we have our data pre-seeded in our Firestore collections, let&#39;s tackle our Flutter app and start consuming the data!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Connect our Firebase project to our app" duration="0">
+        <p>Let&#39;s now plug our project to Firebase so we can authenticate our users before letting them in further. For now we will be using the test account we created earlier in Firebase, but further down we&#39;ll show how to create these accounts programmatically as well, if the need arises.</p>
+<p>We&#39;ll be using the Firebase SDK which luckily comes pre-installed with DartPad, so we don&#39;t have to install anything. You can verify this in DartPad by clicking on the information icon on the lower right corner, which shows a dialog with all packages installed and their versions:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a8642cb3960f546f.png"></p>
+<p>We need to grab some configuration values generated by Firebase that we&#39;ll use to initialize an instance of the Firebase SDK in our app. Each platform has its proprietary way of consuming these configuration values, which in Firebase they are available as <strong>apps</strong>. Let&#39;s proceed and create a web app in our Firebase project.</p>
+<p>Back in the Firebase Console, Click on <strong>Project Overview</strong>, then click on the web icon to set up a web app:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d72c98d78d7f88d9.png"></p>
+<p>In the wizard, you&#39;re asked to add a nickname to register your app under - put <strong>GDG Community App</strong>. Then click <strong>Register App</strong>. No need to set up Firebase Hosting (which is awesome!) but not needed for this project.</p>
+<p class="image-container"><img alt="Main Screen" src="img/53476d63ff21a0de.png"></p>
+<p>In the next step, you&#39;re required to add the Firebase SDK - in our case all we need is the chunk of code provided in this step to initialize / bootstrap the Firebase SDK already installed on DartPad. No worries if you can&#39;t copy it at this point, I&#39;ll show you where to find it in the project. For now, click at the bottom where it says <strong>Continue to console</strong>.</p>
+<p class="image-container"><img alt="Main Screen" src="img/adbc60ec2bc7a49d.png"></p>
+<p>This action will take you back to the project, where you can see now that the newly web app has been created and available. Go ahead and click on the cog next tho the web app name:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d62d7e3832e00dc1.png"></p>
+<p>This option takes  you to the project settings associated to this web app we just created. Right on the <strong>General</strong> tab, you get a lot of relevant information.</p>
+<aside class="special"><p>Make sure to set the <strong>Support email</strong> field under the <strong>Public Settings</strong> section (which by default shows as <strong>Not configured</strong>); open the dropdown and select the email account associated with this Firebase project. Don&#39;t forget this!</p>
+</aside>
+<p class="image-container"><img alt="Main Screen" src="img/431a77be21a5a20.png"></p>
+<p>Scroll all the way to the bottom of the <strong>General</strong> tab and you should find the configuration settings you need to grab to initialize the Firebase SDK in DartPad.</p>
+<p class="image-container"><img alt="Main Screen" src="img/83e1e5b5cdba61bb.png"></p>
+<p>Grab the configuration delimited by the <strong>const firebaseConfig</strong> since we&#39;ll need back on our DartPad project.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Initial App Setup" duration="0">
+        <p>Let&#39;s crack open <a href="https://dartpad.dev/?id" target="_blank"><strong>DartPad</strong></a> so we can start coding our Flutter app.</p>
+<aside class="special"><p>Make sure you clear all boilerplate code given to you by DartPad once you created the Flutter environment; just <strong>Select All</strong> and delete all existing code - let&#39;s start on a clean slate!</p>
+</aside>
+<p>First things first, let&#39;s set up the scaffolding of our app; right at the very top, import the Firebase-related packages we will be using in this project: Google Fonts, and all Firebase and Firestore core libraries:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:google_fonts/google_fonts.dart&#39;;
+import &#39;package:firebase_core/firebase_core.dart&#39;;
+import &#39;package:cloud_firestore/cloud_firestore.dart&#39;;
+
+</code></pre>
+<p>Let&#39;s add the <strong>main</strong> method, since we need to bootstrap our app:</p>
+<pre><code language="language-flutter" class="language-flutter">void main() {
+
+  // TODO: rest of the initialization here
+}
+</code></pre>
+<p>Inside the <strong>main</strong> method, perform the initialization of Firebase, preceded by a call to <strong>WidgetsFlutterBinding.ensureInitialized</strong> - this ensures that the widget binding from the framework is initialized before we make any other calls. Call the <strong>Firebase.initializeApp</strong> method, passing the name parameter <strong>options</strong> and providing the properties inside config object we copied earlier from the Firebase SDK configuration from Firebase Console. Also make sure to decorate the method with the <strong>async</strong> keyword since the <strong>Firebase.initializeApp</strong> is an asynchronous call.</p>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/e67dadab6e63a951.png"></p>
+<p>All required Firebase initialization is in place; let&#39;s proceed with our app.</p>
+<h2 is-upgraded>Set up the Root Widget: GDGApp</h2>
+<p>Set up the <strong>runApp</strong> method to bootstrap the root widget wrapper in our app, which we&#39;ll call <strong>GDGApp</strong>, right under the Firebase initialization block, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/b4cde4f1fea7462d.png"></p>
+<p>Our root widget <strong>GDGApp</strong> doesn&#39;t exist yet - don&#39;t fret. Let&#39;s create it now. Create our first custom widget - a class called <strong>GDGApp</strong> that extends <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html" target="_blank"><strong>StatelessWidget</strong></a>; as customary with any custom widget, override its <strong>build</strong> method and return the main root widget for this app, the <a href="https://api.flutter.dev/flutter/material/MaterialApp-class.html" target="_blank"><strong>MaterialApp</strong></a> widget;</p>
+<p class="image-container"><img alt="Main Screen" src="img/3dd7227079363fb2.png"></p>
+<p>Inside of the <strong>MaterialApp</strong> widget, do the proper initialization, such as setting the following properties:</p>
+<ul>
+<li>debugShowCheckedModeBanner: disables the &#34;debug sash&#34; that shows on the top right corner</li>
+<li>theme: we will set up the text theme, which will apply to all <strong>Text</strong> widgets throughout our app; we imported the <strong>google_fonts</strong> package, thus we&#39;ll use the <strong>Google Fonts</strong>&#39; theme using the <strong>Poppins</strong> font</li>
+<li>home: set the first page to be displayed to the user within the <strong>MaterialApp</strong> root widget as soon as the app starts (the default route); we&#39;ll be calling it **GDGCommunityHome (not yet created - we&#39;ll get to it).</li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/51e1b2201a6917b4.png"></p>
+<p>Let&#39;s move on!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating the Home Page: GDGCommunityHome" duration="0">
+        <p>Let&#39;s focus now on creating the page were we&#39;ll land our users as soon as the app loads. We&#39;ll call it <strong>GDGCommunityHome</strong> and it should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/3faa4689025b8a56.png"></p>
+<p>Below the schematics on how we&#39;ll build it:</p>
+<p class="image-container"><img alt="Main Screen" src="img/ee7ba720aaac1512.png"></p>
+<p>Before we proceed, we need to create a utilities class that will hold some values that we&#39;ll reuse throughout our app, such as colors, image paths, etc. The class will be called <strong>Utils</strong> and will hold some static values. Save some keystrokes and copy the code below that represents this class, and paste it anywhere in the file, preferably at the bottom:</p>
+<pre><code language="language-flutter" class="language-flutter">class Utils {
+  static const Color mainColor = Color(0xFF0C3F9F);
+  static const Color lightMainColor = Color(0xFFF2F6FF);
+  static const Color secondaryColor = Color(0xFF6B9EFA);
+  
+  static String appBarIcon = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdglogo_grey.png&#39;;
+  static String gdgCommunityLogoWhite = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdgcommunity_white.png&#39;;
+  static String gdgCommunityLogoBlue = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdgcommunity_blue.png&#39;;
+}
+</code></pre>
+<p>With that in place, let&#39;s now create a class called <strong>GDGCommunityHome</strong> that extends <strong>StatelessWidget</strong> (to match the placeholder above) that returns a <strong>Scaffold</strong> with its background color set to white:</p>
+<p class="image-container"><img alt="Main Screen" src="img/4adf81dc219700dd.png"></p>
+<p>Now let&#39;s add an <strong>AppBar</strong> to this <strong>Scaffold</strong>, with the following properties:</p>
+<ul>
+<li><strong>background</strong>: set it to transparent</li>
+<li><strong>elevation</strong>: 0, means no shadow</li>
+<li><strong>iconTheme</strong>: make it grey, using the <strong>IconThemeData</strong> and its <strong>color</strong> property</li>
+<li><strong>title</strong>: we&#39;ll add an <strong>Image.network</strong> widget, 40x40 in dimension, using a predefined image path we provided in the <strong>Utils</strong> class</li>
+</ul>
+<p>Your code should look as follows:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d446405c260a688e.png"></p>
+<p>Run it through DartPad and you should see this in the preview:</p>
+<p class="image-container"><img alt="Main Screen" src="img/db20acecd3bbd3b7.png"></p>
+<p>May not look like much, but believe me - we&#39;re making great progress!</p>
+<h2 is-upgraded>Fleshing out the body of the Scaffold</h2>
+<p>Let&#39;s focus on the <strong>Scaffold</strong>&#39;s body for now. Add a <strong>Padding</strong> widget with 40px padding all around, with a <strong>Column</strong> widget as its child, and its <strong>crossAxisAlignment</strong> set to <strong>start</strong> to left align its children:</p>
+<p class="image-container"><img alt="Main Screen" src="img/21884b2ab2c577cf.png"></p>
+<p>Let&#39;s work on adding the GDG Community logo as the first item in the <strong>Column</strong>; wrap an <strong>Image.network</strong> widget inside a <strong>Container</strong> with 20px margin (top and bottom only), and set it to be 200px in dimension, with a fit of <strong>Box.contain</strong>, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/138c1ed7ded65345.png"></p>
+<p>Run it on DartPad and you should see the image:</p>
+<p class="image-container"><img alt="Main Screen" src="img/e773ff873ac97966.png"></p>
+<p>Let&#39;s work now on the <strong>Meet the Team</strong> header banner, which should be nothing more than another <strong>Container</strong> widget with the following properties:</p>
+<ul>
+<li>color: Utils.lightMainColor</li>
+<li>padding: 10px all around</li>
+<li>child: a <strong>Row</strong> widget with three children:  <ul>
+<li>an <strong>Icon</strong> widget (30px, Icons.people, color <strong>Utils.mainColor</strong>)</li>
+<li>a <strong>SizedBox</strong>, 10px wide</li>
+<li>a <strong>Text</strong> widget with the content <strong>Meet the Team</strong>, color <strong>Utils.mainColor</strong>, with 20px font size</li>
+</ul>
+</li>
+</ul>
+<p>Your whole container should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/deeedbf05de0c5c.png"></p>
+<p>Preview it on DartPad:</p>
+<p class="image-container"><img alt="Main Screen" src="img/50fee5027ec92077.png"></p>
+<p>Great, now let&#39;s focus on the meat of the project: pulling data from Firebase Cloud Firestore!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pulling Data from Cloud Firestore: Displaying Team Data" duration="0">
+        <p>With our configuration in place up top, it is all a matter now of referencing the initialized Firebase instance and tap into our Firestore backend and pull the team data.</p>
+<p>First, we need to create a Plain Ol&#39; Dart Object model class that we&#39;ll use to map the Firestore data we&#39;ll be receiving into a strongly-typed object we can manipulate easily inside Flutter.</p>
+<p>We&#39;ll create a class called <strong>TeamMember</strong>, which will represent an individual team member; we&#39;ll map each of the fields in each Firestore document to fields in this class. We&#39;ll need our three document fields (<strong>fullName</strong>, <strong>photoUrl</strong>, <strong>title</strong>), a constructor to feed the values into it, and a <strong>factory</strong> method to crank out instances of <strong>TeamMember</strong> based on incoming JSON data, as such:</p>
+<pre><code language="language-flutter" class="language-flutter">class TeamMember {
+  
+  String? fullName;
+  String? photoUrl;
+  String? title;
+  
+  TeamMember({ this.fullName, this.photoUrl, this.title });
+  
+  factory TeamMember.fromJson(Map&lt;String, dynamic&gt; json) {
+    return TeamMember(
+      fullName: json[&#39;fullName&#39;],
+      photoUrl: json[&#39;photoUrl&#39;],
+      title: json[&#39;title&#39;]
+    );
+  }
+}
+
+</code></pre>
+<p>Now let&#39;s go fetch some data from Firebase, and for this, we&#39;ll be dealing with <strong>QuerySnapshots</strong> and <strong>DocumentSnapshots</strong>.</p>
+<aside class="special"><p>A <a href="https://pub.dev/documentation/cloud_firestore/latest/cloud_firestore/QuerySnapshot-class.html" target="_blank"><strong>QuerySnapshot</strong></a> is returned from a collection query, and allows you to inspect the collection, such as how many documents exist within it, gives access to the documents within the collection, see any changes since the last query and more.</p>
+</aside>
+<p>We&#39;ll fetch the data using a *<strong>one-time</strong> read approach; later on we&#39;ll try the real-time approach. In the one-time read, data is fetched only once, using the <strong>.get()</strong> call, which returns to us a <strong>Future</strong> that wraps a <strong>QuerySnapshot</strong>, consisting of a reference to a collection in Cloud Firestore.</p>
+<p>Making the call to fetch all our team members from the collection <strong>team</strong> looks like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a22180d3c534d30.png"></p>
+<p>This returns a future, which we could just feed into a <strong>FutureBuilder</strong> widget. Let&#39;s do just that in the sections below.</p>
+<h2 is-upgraded>Team Member List widget: structure</h2>
+<p class="image-container"><img alt="Main Screen" src="img/ca32b52170ce52b.png"></p>
+<p>Inside of our widget&#39;s main <strong>Column</strong>, add an <strong>Expanded</strong> widget since we want the list of team members to occupy most of the <strong>Column</strong>&#39;s real estate. Inside the <strong>Expanded</strong> widget, add a <strong>FutureBuilder</strong> widget, and set the following properties to it:</p>
+<ul>
+<li>future: set it to be the call to Firestore to get the <strong>team</strong> collection</li>
+<li>builder: the callback method that will response to all actions regarding fetching the data (waiting, data received, error, etc.); this callback gets a reference to the <strong>context</strong> and a <strong>snapshot</strong> (a reference to the asynchronous operation - the <strong>Future</strong> - wrapping our desired result: the <strong>QuerySnapshot</strong> which is a reference to the <strong>team</strong> collection in Firestore)</li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/549a80d416a4bd77.png"></p>
+<p>Inside the <strong>FutureBuilder</strong> builder callback, you inspect the <strong>snapshot</strong> returned from the call, and the common things to check against are whether the snapshot has any data (<strong>snapshot.hasData</strong>), whether it has errors (<strong>snapshot.hasError</strong>) and even checking the snapshot&#39;s <strong>ConnectionState</strong> so you can respond accordingly to the various conditions that you may encounter.</p>
+<p>We&#39;ll just check for whether the snapshot has data for now. Since the <strong>snapshot</strong> is an instance of <strong>AsyncSnapshot&lt;QuerySnapshot&gt;</strong>, you have to extract the actual <strong>QuerySnapshot</strong> from the snapsnot itself by saying <strong>snapshot.data</strong>; cast it as a <strong>QuerySnapshot</strong> and extract the documents out of it (via the <strong>docs</strong> property, which give you a list of <strong>QueryDocumentSnapshot</strong> references - the team documents inside the <strong>team</strong> collection):</p>
+<p class="image-container"><img alt="Main Screen" src="img/adc775b163cade5c.png"></p>
+<p>Now, to extract the actual data out of each of the <strong>QueryDocumentSnapshot</strong> references, call the <strong>data()</strong> method from it, which returns a key-value pair structure as a <strong>Map&lt;String, dynamic&gt;</strong> which contains the keys and the corresponding values we set back in Cloud Firestore.</p>
+<p>Run a <strong>.map</strong> against these document references, and feed the output of each document&#39;s <strong>data()</strong> to the <strong>TeamMember.fromJson</strong> factory method, to get a mapped version of each document as a strongly-typed Dart object model; store the resulting list in a local <strong>List</strong> variable holding <strong>TeamMember</strong> references, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/40cdb2fd4cb79dd3.png"></p>
+<p>Let&#39;s see what we get out of the <strong>members</strong> collection.</p>
+<p>For now, return a <strong>Text</strong> widget displaying the length of the <strong>members</strong> collection, as a test; and while you&#39;re at it, return an empty <strong>SizedBox</strong> otherwise out of this method, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/bdb1b21507e6600e.png"></p>
+<p>Run it through DartPad, and if all goes well, you should be seeing a number - the length of the <strong>members</strong> collection, exactly the amount of documents  you added to the <strong>team</strong> collection back in Firestore. Yay!!!</p>
+<p class="image-container"><img alt="Main Screen" src="img/7ae7f6b542b88054.png"></p>
+<p>Now that we&#39;re getting out data, let&#39;s start displaying. Let&#39;s pack this up into a separate widget that will display the items in a list. We&#39;ll call this custom widget <strong>TeamMemberList</strong>.</p>
+<p>Go to the next section to create it.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating the Team Member List" duration="0">
+        <p>With the Firestore data on our end, let&#39;s flesh it out for our users. We&#39;ll create a separate widget called <strong>TeamMemberList</strong>. Create a class with the same name, that extends <strong>StatelessWidget</strong>; add the following features to this class:</p>
+<ul>
+<li>a <strong>final members</strong> property, type <strong>List</strong> of <strong>TeamMember</strong> objects; this is to feed all retrieved team member objects from Firestore into this widget</li>
+<li>a constructor to populate the <strong>members</strong> property</li>
+<li>from its <strong>build</strong> method, return a <strong>ListView</strong></li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/fa1ec66ccfb5641c.png"></p>
+<p>Let&#39;s refactor the <strong>build</strong> method. Instead of <strong>ListView</strong>, let&#39;s use the built-in constructor <strong>ListView.builder</strong>, with the following settings:</p>
+<ul>
+<li>itemCount: the length of the <strong>members</strong> property</li>
+<li>itemBuilder: a callback / handler that will execute per item in the <strong>members</strong> collection. Inside of this callback, extract the corresponding <strong>TeamMember</strong> from the <strong>members</strong> collection, using the provided index in the current iteration, and as a test, display the <strong>TeamMember</strong>&#39;s <strong>fullName</strong> in a <strong>Text</strong> widget, as follows:</li>
+</ul>
+<p class="image-container"><img alt="Main Screen" src="img/adda409169071002.png"></p>
+<p>Back to the <strong>GDGCommunityHome</strong> page, replace the <strong>return</strong> statement showing the <strong>members</strong> length inside the <strong>Text</strong> widget, by our newly created <strong>TeamMemberList</strong> widget, feeding the <strong>members</strong> collection to it:</p>
+<p class="image-container"><img alt="Main Screen" src="img/9eeb182162fd797d.png"></p>
+<p>Run it on DartPad, you should see a list with three text widgets, showing the names of our members:</p>
+<p class="image-container"><img alt="Main Screen" src="img/e8c0357f24032c54.png"></p>
+<p>Now, let&#39;s work on displaying their actual information, in a nicely encapsulated team member card-looking widget. Head on to the next step!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create the Team Member Card" duration="0">
+        <p class="image-container"><img alt="Main Screen" src="img/9065d57a3b9bdfe4.png"></p>
+<p>Let&#39;s start by creating a separate custom widget; start with a class called <strong>TeamMemberCard</strong> that extends <strong>StatelessWidget</strong>. Add the following features:</p>
+<ul>
+<li>Returns a <strong>Container</strong> out of its overridden <strong>build</strong> method</li>
+<li>Add a <strong>final</strong> property called <strong>member</strong>, type <strong>TeamMember</strong>, and a corresponding constructor parameter to hydrate it.</li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/69326dc7d8158880.png"></p>
+<p>Let&#39;s keep fleshing out the <strong>TeamMemberCard</strong>. Inside the <strong>build</strong> method, add 20px margin (top and bottom) to the existing <strong>Container</strong>, and as its child, add a <strong>Row</strong> widget:</p>
+<p class="image-container"><img alt="Main Screen" src="img/f559cdfe4c93a581.png"></p>
+<p>We&#39;ll first add the team member&#39;s image using an <strong>Image.network</strong>, feeding the <strong>photoUrl</strong> to it, and clipping it as a circle using a <strong>ClipOval</strong> widget; make the image 50px in dimension, and fit it using <strong>BoxFit.cover</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/1acf4c208d096aac.png"></p>
+<p>Add some spacing using a <strong>SizedBox</strong> 20px wide; then wrap it up by adding a <strong>Column</strong> widget that contains the <strong>Text</strong> widgets that will hold both <strong>fullName</strong> and <strong>title</strong> from the <strong>TeamMember</strong>; add the corresponding styles to match our design. Make sure the <strong>Text</strong> widgets are left aligned by setting <strong>crossAxisAlignment</strong> to <strong>start</strong> to our <strong>Column</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/80a44af72816ec5.png"></p>
+<p>With that completed, go back to the <strong>TeamMemberList</strong> widget, replace the placeholder <strong>Text</strong> widget by our newly created <strong>TeamMemberCard</strong>, feeding into it the <strong>member</strong> local variable, as follows:</p>
+<p class="image-container"><img alt="Main Screen" src="img/6216f5232417d322.png"></p>
+<p>Testing it on DartPad and we should be all set!</p>
+<p class="image-container"><img alt="Main Screen" src="img/67521cf5d61eb08.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Nice-To-Have: Spin while data arrives" duration="0">
+        <p>Cool, we&#39;re getting data from Firestore and displaying it on our UI in a very nice way. But we could make the experience even better. You may have noticed that before the data arrives, there&#39;s a bit of a brief blank space shown before the team cards are rendered; this is because since the call is asynchronous, it takes a bit to arrive, and when it does, then it renders. Let&#39;s add a spinning circular progress indicator to display it while the data arrives.</p>
+<p>Back to the <strong>GDGCommunityHome</strong>, instead of returning an empty <strong>SizedBox</strong> out of the <strong>FutureBuilder</strong>, let&#39;s return a <strong>CircularProgressIndicator</strong>.</p>
+<p>Create a <strong>Center</strong> widget, wrapping a <strong>SizedBox</strong> with fixed dimensions (50x50), and inside, the <strong>CircularProgressIndicator</strong>, with a 5px <strong>strokeWidth</strong>, and <strong>valueColor</strong> via <strong>AlwaysStoppedAnimation</strong> and setting it to be <strong>Utils.mainColor</strong>.</p>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/f2cda0aefcfce640.png"></p>
+<p>And running it on DartPad, now you&#39;ll see the spinning indicator briefly (better than a blank region):</p>
+<p class="image-container"><img alt="Main Screen" src="img/7ea20c3d36fd0d49.gif"></p>
+<p>Nice, let&#39;s keep rolling!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Firestore Real-Time Capabilities: Creating the Community Support Page" duration="0">
+        <p>We&#39;ll now tap into Firestore&#39;s real-time capabilities by creating the following page - a community-powered meter in which you&#39;ll be sending messages to our Firestore instance in the cloud and flood it with real-time messages until we reach the Community-Meter goal of 300 messages! You&#39;ll be able to interact and engage with it by seeing the messages being pushed to the backend in real time. We need your help!</p>
+<p class="image-container"><img alt="Main Screen" src="img/46334e36033a6b10.png"></p>
+<p>Are you ready? Let&#39;s get to it!</p>
+<h2 is-upgraded>Recap of what we&#39;ll do</h2>
+<p>So we&#39;ll create the widget page called <strong>GDGCommunitySupport</strong>, which contains what I call a &#34;community-meter&#34; custom widget that will respond to messages being pushed to Firestore. The meter will increase its bar for as many messages arrive, which you - as a user, will be able to send via pressing the <strong>Send Message</strong> button. It is capped at 300 messages, then it displays a congrats message to the user notifying of the goal being met.</p>
+<h2 is-upgraded>GIGFFFFF</h2>
+<p>Here&#39;s a schematic view of what we&#39;ll be building:</p>
+<p class="image-container"><img alt="Main Screen" src="img/b6b0cfd793900b7c.png"></p>
+<p>Start by creating a custom class called <strong>GDGCommunitySupport</strong> that extends <strong>StatelessWidget</strong> and returns a <strong>Scaffold</strong> by default from its overridden <strong>build</strong> method:</p>
+<p class="image-container"><img alt="Main Screen" src="img/8e1072fa2dcd3b2.png"></p>
+<aside class="special"><p>To maximize our development productivity, let&#39;s point our <strong>GDGApp</strong>&#39;s <strong>home</strong> property to this page, so while we code it and reload, we always end up here. Later we&#39;ll add navigation in the <strong>GDGCommunityHome</strong> page to navigate to this page.</p>
+</aside>
+<p class="image-container"><img alt="Main Screen" src="img/19faaf2f6935ef39.png"></p>
+<p>Let&#39;s continue.</p>
+<p>We&#39;ll flesh out this page and start by adding a white background color to the <strong>Scaffold</strong> as well as the usual <strong>AppBar</strong> we added to the <strong>GDGCommunityHome</strong> widget page, as follows:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d6e3474c5640d47a.png"></p>
+<p>Let&#39;s proceed to populate the <strong>Scaffold</strong>&#39;s body.</p>
+<p>Like before, add a <strong>Padding</strong> widget with 40px padding all around as the root of this structure, wrapping a <strong>Column</strong> widget, with its <strong>crossAxisAlignment</strong> set to <strong>stretch</strong>, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/c5086c2e041126b7.png"></p>
+<p>Let&#39;s focus on this <strong>Column</strong> moving forward.</p>
+<p>As the first two children of the <strong>Column</strong> we&#39;ll add two <strong>Text</strong> widgets, one for the title <strong>Community Meter</strong> and another <strong>Text</strong> widget for the subtitle <strong>Goal: 300 Messages</strong> to let people know what the goal is. Both will have their text centered aligned and color using <strong>Utils.mainColor</strong>; with the only difference that the top title will be 30px in size and subtitle 15px in size, as shown below:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a4ea594020c4713f.png"></p>
+<p>Let&#39;s see what we&#39;ve built so far. Running it through DartPad:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d7ab03de63380f97.png"></p>
+<p>Now on to the fun part - reading the messages being streamed to Firestore! See you on the next section.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Reading Real-time messages from Firebase" duration="0">
+        <p>As we mentioned earlier, there are two strategies in which you can get data from Firebase: either using a &#34;pull&#34; mechanism (using the <strong>.get()</strong> call) or using a &#34;push&#34; mechanism (where the data is pushed to you as you <strong>listen</strong> on the stream).</p>
+<p>Firebase provides support for dealing with realtime changes to collections and documents. A new event is provided on the initial request, and any subsequent changes to collection/document whenever a change occurs (modification, deleted or added).</p>
+<p>Both the <strong>CollectionReference</strong> and <strong>DocumentReference</strong> provide a <strong>snapshots()</strong> method, which returns a <strong>Stream</strong> (as opposed to <strong>.get()</strong> which returns a <strong>Future</strong>).</p>
+<p>The way to get the <strong>Stream</strong> to listen to is as shown below:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d98aaa895b6d37e5.png"></p>
+<p class="image-container"><img alt="Main Screen" src="img/14e75ec5fbfa1c3b.png"></p>
+<p>Now, to &#34;listen&#34; to the stream, you could just call <strong>listen()</strong> on the stream, and provide a callback that will feed a reference to either the collection or document being listened to, and making sure you dispose of the stream after being done.</p>
+<p>However, Flutter has another useful widget just like the <a href="https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html" target="_blank"><strong>FutureBuilder</strong></a> that listens for asynchronous one-time calls, but this one listens on the stream and automatically disposes of the stream appropriately when done: the <a href="https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html" target="_blank"><strong>StreamBuilder</strong></a> widget.</p>
+<p>Let&#39;s go ahead and use it!</p>
+<p>Continuing on our structure, right below the two <strong>Text</strong> widgets, we&#39;ll insert an <strong>Expanded</strong> widget since we want the rest of the real estate in our <strong>Column</strong> widget to be occupied by the community meter widget and the goal widget.</p>
+<p>Then, go ahead and add the <strong>StreamBuilder</strong> widget, populating its properties as described below:</p>
+<ul>
+<li>stream: feed into it a call to <strong>FirebaseFirestore.instance.collection(‘community_support_meter&#39;).snapshots()</strong>. This collection doesn&#39;t yet exists - and that&#39;s one of the beauties of Firebase: if a collection doesn&#39;t exists, it creates it, otherwise it continues using it.</li>
+<li>builder: a callback through which we&#39;ll capture the widget&#39;s <strong>context</strong> and the <strong>snapshot</strong>, which almost like a <strong>FutureBuilder</strong>, wraps the data it brings, which should be a reference to the <strong>QuerySnapshot</strong> or the collection that contains all the messages we&#39;ll be pushing (<strong>community_support_meter</strong>).</li>
+</ul>
+<p>Your code should look like this so far:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a4d3c92a73220f95.png"></p>
+<p>Very similarly to the <strong>FutureBuilder</strong>&#39;s snapshot, you can check for whether there&#39;s data (<strong>hasData</strong>), errors (<strong>hasError</strong>) or check the <strong>ConnectionState</strong>. For the sake of this workshop, let&#39;s just check for whether there&#39;s data. Then grab the <strong>snapshot</strong>&#39;s <strong>data</strong>, cast it as what we&#39;re expecting - a <strong>QuerySnapshot</strong> reference, out of which we&#39;ll pull the <strong>docs</strong> - the documents inside the collection; while you&#39;re at it, return an empty <strong>SizedBox</strong> at the end of this callback as well:</p>
+<p class="image-container"><img alt="Main Screen" src="img/e9b8dfdd99e3aee6.png"></p>
+<p>Just as a test, display the length of the messages being received through the stream inside a simple <strong>Text</strong> widget; I&#39;m making the font size a bit big to make it noticeable:</p>
+<p class="image-container"><img alt="Main Screen" src="img/bd2df93055808f8a.png"></p>
+<p>Run it through DartPad, and you should get a zero (0) - why? 1) the collection doesn&#39;t exist; 2) regardless of whether it exists, you always get a snapshot, even if it&#39;s empty. The <strong>length</strong> of the <strong>messages QuerySnapshot</strong> is zero as no one has pushed any messages to it. Let&#39;s fix that!</p>
+<p>Go to the Firebase Console real quick, and go to the <strong>Cloud Firestore</strong> section. You should only see the <strong>teams</strong> collection, correct.</p>
+<p>Well, now add a new collection called <strong>community_support_meter</strong> (make sure the name is correct, as that&#39;s what we&#39;re expecting in our code):</p>
+<p class="image-container"><img alt="Main Screen" src="img/3129a42fa056cdf9.png"></p>
+<p>Proceed to add a first document to our collection - add anything; in our case, we created a document with an Auto-ID, and a simple <strong>message</strong> field, type <strong>string</strong> that said &#34;I .love Flutter&#34;; hit <strong>Save</strong> once you&#39;re done:</p>
+<p class="image-container"><img alt="Main Screen" src="img/179a457a52d92be.png"></p>
+<p>If you did it correctly, you should get the following on the Firebase Console: a collection called <strong>community_support_meter</strong>, a document with an Auto-ID assigned to it, and with a field called <strong>message</strong> with the string content &#34;I love Flutter&#34;:</p>
+<p class="image-container"><img alt="Main Screen" src="img/b17629bbee1a0c2a.png"></p>
+<p>Now, if you go back to DartPad (and better yet, if you were looking at it while we inserted the document) you should&#39;ve seen the <strong>Text</strong> widget automatically changing from zero to 1, since we added a document and Flutter was listening on the stream via the <strong>StreamBuilder</strong> widget, and rendering accordingly:</p>
+<p class="image-container"><img alt="Main Screen" src="img/b67a5d8c82eabd3b.png"></p>
+<p>Amazing! This app is almost done - all we need to do is just make it pretty and install the community-meter widget in place to make this fun!</p>
+<p>Ready! See you on the next section.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Displaying Real-Time messages to Firestore: Community Meter" duration="0">
+        <p>Below is what we&#39;ll be building:</p>
+<p class="image-container"><img alt="Main Screen" src="img/e8ec3df4263cc1c.png"></p>
+<p>This widget will just take the length of messages being streamed to us, and display it as a bar that increases in height as more messages arrive. It also uses a counter in a <strong>Text</strong> widget on top of a chat <strong>Icon</strong> to keep count of how many messagea have arrived.</p>
+<p>Let&#39;s build it!</p>
+<p>Create a custom class called <strong>GDGCommunitySupportMeter</strong> that extends <strong>StatelessWidget</strong> with the following characteristics:</p>
+<ul>
+<li>a final <strong>count</strong> property, type <strong>int</strong> that will receive the length of messages</li>
+<li>a constructor to feed it into the widget, with a default value of 0</li>
+<li>return a <strong>Column</strong> widget out of of its <strong>build</strong> method, with its children aligned at the bottom of the column (***mainAxisAlignment: MainAxisAlignment.end).</li>
+</ul>
+<p>Your code should look as follows:</p>
+<p class="image-container"><img alt="Main Screen" src="img/9478625c6b151e68.png"></p>
+<p>Let&#39;s focus on the children of this <strong>Column</strong> moving forward.</p>
+<p>As the first child of the <strong>Column</strong>, add a fixed-size <strong>SizedBox</strong> (150x150), wrapping a <strong>Stack</strong> widget:</p>
+<p class="image-container"><img alt="Main Screen" src="img/5063e7dfec2965e0.png"></p>
+<p>As the first child of the <strong>Stack</strong>, add the <strong>Icon</strong> first, since we&#39;ll have to add the label on top of it, in a layered fashion. Wrap the <strong>Icon</strong> widget (color <strong>Utils.mainColor</strong>, with icon <strong>Icons.chat_bubble</strong>, size 150px) inside a <strong>Container</strong> widget with 12px top margin, which in turn is wrapped inside a <strong>Center</strong> widget:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a7a287a076ba80ed.png"></p>
+<p>Proceed to do the same with the <strong>Text</strong> widget, wrap it inside a <strong>Center</strong> widget, and feed as its content the <strong>count</strong> property converted to a string, with the proper styles applied (color white, font size 60px, and bold):</p>
+<p class="image-container"><img alt="Main Screen" src="img/af577813dacb2ebb.png"></p>
+<p>Let&#39;s install the widget in place so we can start previewing it.</p>
+<p>Go back to the <strong>GDGCommunitySupport</strong> widget page; inside the <strong>StreamBuilder</strong>&#39;s builder method, right where we&#39;re displaying the <strong>messages.length</strong> in a <strong>Text</strong>, replace this by our newly created <strong>GDGCommunitySupportMeter</strong> widget, and feed into it the length of the <strong>messages</strong> collection gathered:</p>
+<p class="image-container"><img alt="Main Screen" src="img/7476ccd55c67a746.png"></p>
+<p>Running it on DartPad for previewing purposes:</p>
+<p class="image-container"><img alt="Main Screen" src="img/846460a417bc4fc6.png"></p>
+<p>Not bad! Let&#39;s continue with the rest of the pieces.</p>
+<p>Back to the <strong>GDGCommunitySupportMeter</strong> widget, let&#39;s add the messages that will show on top of the bar.</p>
+<p>Under the <strong>SizedBox</strong> holding the chat bubble, add a <strong>Container</strong> with top and bottom margin (20px), and as its child, a <strong>Text</strong> widget with the content &#34;Messages\nIn Firebase&#34;, center aligned, color it with our <strong>Utils.mainColor</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/3108450d2dcb6674.png"></p>
+<p>Preview on Dartpad:</p>
+<p class="image-container"><img alt="Main Screen" src="img/2783758e6a33519b.png"></p>
+<p>Moving on! Let&#39;s add the piece that represents the bar. This is nothing more than a <strong>Container</strong> that changes its height upon updates to the <strong>count</strong> property as we receive the messages length value and this widget rebuilds itself.</p>
+<p>Create a <strong>Container</strong> with the following specs:</p>
+<ul>
+<li>width: 200px</li>
+<li>height: based on whatever the <strong>count</strong> is, so use <strong>count.toDouble()</strong> since the count is an integer and <strong>height</strong> takes a double</li>
+<li>decoration: set the <strong>Utils.mainColor</strong> as the color, and border radius only on the top left and top right (30px), as follows:</li>
+</ul>
+<p class="image-container"><img alt="Main Screen" src="img/29295f0fed8d35d9.png"></p>
+<p>If you preview it as it is, the <strong>Container</strong> will have a height of 1px (if you&#39;ve been following along what I&#39;ve been doing). You can test it by changing its height real quick just to see what it looks like (i.e. set the height to 100 to see):</p>
+<p class="image-container"><img alt="Main Screen" src="img/6ef1681cbec88426.png"></p>
+<p>Ok, set the height back to <strong>count!.toDouble()</strong> so we don&#39;t forget.</p>
+<p>Let&#39;s proceed to add the border that represents the base of the bar; this is also another <strong>Container</strong>, 10px in height with the <strong>Utils.mainColor</strong> color:</p>
+<p class="image-container"><img alt="Main Screen" src="img/ac8057d76f57e1a.png"></p>
+<p>This is what it should look like (testing with the 100px height again):</p>
+<p class="image-container"><img alt="Main Screen" src="img/b285aa0159435488.png"></p>
+<p>All good! we&#39;re done with this widget. Now for the final piece of the <strong>GDGCommunitySupport</strong> page, we need a way to trigger the pushing of messages right from our interface, as opposed to us having to manually do them via the Firebase Console. Let&#39;s add a custom button for it.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pushing Real-Time messages to Firestore: GDGCommunityButton" duration="0">
+        <p>You can pretty much add any button here to pushing messages to our <strong>community_support_meter</strong> collection back in Firestore, but we want to be fancy a bit and roll out our own. We&#39;ll create a custom widget that will represent the button we&#39;ll press to send messages, which will be picked up by the listening <strong>StreamBuilder</strong>, thus triggering changes on our <strong>GDGCommunitySupportMeter</strong> widget and so on.</p>
+<p class="image-container"><img alt="Main Screen" src="img/c66b62c6e23601be.png"></p>
+<p>Start by creating a custom widget class called <strong>GDGCommunityButton</strong> that extends <strong>StatelessWidget</strong>, with the following characteristics:</p>
+<ul>
+<li>3 fields:  <ul>
+<li>label: type <strong>String</strong>, for the button label</li>
+<li>onTap: type <strong>Function</strong>, for handling the clicking action</li>
+<li>icon: type <strong>IconData</strong> for supplying the icon</li>
+</ul>
+</li>
+<li>a constructor feeding their values</li>
+<li>override its <strong>build</strong> method, and return a <strong>Container</strong> by default</li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/9cca3351bbcba0c8.png"></p>
+<p>To the returning <strong>Container</strong>, add 20px padding all inside, with a <strong>Row</strong> as its direct child; align the children of the <strong>Row</strong> to the center, and as its children, add the following:</p>
+<ul>
+<li>a <strong>Text</strong> widget; feed the <strong>label</strong> property, and color it white, with 20px font size</li>
+<li>add some spacing using a <strong>SizedBox</strong>, 10px wide</li>
+<li>an <strong>Icon</strong> widget; feed the <strong>icon</strong> property to it, color it white with 30px size</li>
+</ul>
+<p>Your code should look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/265babea98acce9b.png"></p>
+<p>Let&#39;s proceed. Wrap the <strong>Container</strong> inside an <strong>InkWell</strong>, for the ripple effects and the tap event; set the following properties on it:</p>
+<ul>
+<li>splashColor: Utils.lightMainColor</li>
+<li>highlightColor: Utils.lightMainColor</li>
+<li>onTap: add a handler, and invoke the <strong>onTap Function</strong> provided to this widget</li>
+</ul>
+<p>Verify your code looks like this after adding the <strong>InkWell</strong>:</p>
+<p class="image-container"><img alt="Main Screen" src="img/c90a85d3beb99f5b.png"></p>
+<p>Lastly, wrap the <strong>InkWell</strong> inside a <strong>Material</strong> widget, to clip it as a rounded rectangle (border radius of 50px) and to provide the background color (Utils.secondaryColor):</p>
+<p class="image-container"><img alt="Main Screen" src="img/cfb4ba84bc1b4e97.png"></p>
+<p>We&#39;re done with this widget, now let&#39;s put it in place.</p>
+<p>Back to the <strong>GDGCommunitySupport</strong> widget page, go to where the existing <strong>GDGCommunitySupportMeter</strong> widget is located. We&#39;ll refactor the structure we have here. Instead of just returning this widget, we&#39;ll return a <strong>Column</strong> that will contain both community-meter and custom button we just created.</p>
+<p>You can start by wrapping the existing <strong>GDGCommunitySupportMeter</strong> widget inside an <strong>Expanded</strong> widget, since we want this widget to occupy most of the real estate in the mini-structure we&#39;re building; then wrap the <strong>Expanded</strong> inside a <strong>Column</strong> widget, like so:</p>
+<p class="image-container"><img alt="Main Screen" src="img/11cf47d186833ba9.png"></p>
+<p>Then, below the <strong>Expanded</strong> widget, proceed to add a <strong>SizedBox</strong> with 40px in height, followed by our newly created <strong>GDGCommunityButton</strong> widget, with the following properties set:</p>
+<p class="image-container"><img alt="Main Screen" src="img/8cce774cd4d4b866.png"></p>
+<p>With that in place, run it through DartPad for testing what we have so far:</p>
+<p class="image-container"><img alt="Main Screen" src="img/c282203db3610321.png"></p>
+<p>Wow, looking really sharp! Now it&#39;s all a matter of hooking up the action to this button so we can send messages. Let&#39;s do it!</p>
+<h2 is-upgraded>Pushing messages to our Firestore collection</h2>
+<p>Our action will be performed inside the <strong>GDGCommunityButton</strong>&#39;s onTap event (which right now is an empty callback handler).</p>
+<p>In order to add documents to a Cloud Firestore collection, you invoke the <strong>add()</strong> method to the <strong>CollectionReference</strong> in question, as in:</p>
+<p class="image-container"><img alt="Main Screen" src="img/485f7c3d762d30dd.png"></p>
+<p>Through the <strong>add()</strong> method available in the <strong>CollectionReference</strong> reference, we&#39;ll add documents; a document consists of a key-value pair dictionary of the fields that have been designated in Firestore, or an arbitrary set of key-value pairs, but it is always good practice to keep a consistent &#34;schema&#34; so as to ensure you&#39;re getting the correct types for each of the fields you&#39;re expecting.</p>
+<p>Go to the <strong>onTap</strong> event inside our <strong>GDGCommunityButton</strong> widget, and add the following:</p>
+<p class="image-container"><img alt="Main Screen" src="img/2d28b325502eecc5.png"></p>
+<p>Calling <strong>add()</strong> and pushing a key-value pair dictionary pushes a document to Firestore, which kicks off a series of events:</p>
+<ul>
+<li>sends the object to Cloud Firestore</li>
+<li>object gets added to collection <strong>community_support_meter</strong></li>
+<li>on our end, the <strong>StreamBuilder</strong> is listening on any changes occurring on the <strong>community_support_meter</strong> via the <strong>CollectionReference</strong> stream</li>
+<li>values are streamed into Flutter via the <strong>StreamBuilder</strong></li>
+<li>the <strong>StreamBuilder</strong> widget executes its <strong>builder</strong> method, which pulls the data out of the snapshot (a <strong>QuerySnapshot</strong>)</li>
+<li>we get the <strong>docs</strong> out of the <strong>QuerySnapshot</strong> and get its length</li>
+<li>we feed the length to our <strong>GDGCommunitySupportMeter</strong> widget</li>
+<li>this widget rebuilds itself with the incoming value</li>
+<li>and the cycle repeats itself for any new value we push (when we click on the &#34;Send Message!&#34; button)</li>
+</ul>
+<p>Let&#39;s take it for a spin, shall we!</p>
+<p>This is what it should look like when we tap repeatedly on the send message button:</p>
+<p class="image-container"><img alt="Main Screen" src="img/f02a1827dd7f35e2.gif"></p>
+<p>Amazing work! You can click that button until your finger hurts. Now, we are not limiting the amount of times you can click, meaning we are not checking for our goal.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Checking for the Community Goal" duration="0">
+        <p>Let&#39;s try that so we can proceed with our next widget - what I&#39;m calling the &#34;goal&#34; widget!.</p>
+<p>At the top of the <strong>GDGCommunitySupport</strong> page, create a final <strong>int</strong> property called <strong>messagesGoal</strong>, set it to 300:</p>
+<p class="image-container"><img alt="Main Screen" src="img/cecd7d5368eb11b0.png"></p>
+<aside class="special"><p>You can also replace the hardcoded value in the subtitle of this page, where it says ‘Goal: 300 messages&#39;, and interpolate this variable there as well:</p>
+</aside>
+<p class="image-container"><img alt="Main Screen" src="img/8fd5893ef394989f.png"></p>
+<p>Now, right inside of the check whether the snapshot has data (<strong>snapshot.hasData</strong>), right above the returned <strong>Column</strong> widget containing the community-meter, check for the length of the messages, and if it has exceeded the <strong>messagesGoal</strong> value, we&#39;ll show our goal widget, but meanwhile let&#39;s add a sample <strong>Text</strong> widget (and also cap our limit to 5, just for testing purposes); you should see the following:</p>
+<p class="image-container"><img alt="Main Screen" src="img/50d78f856efe0bac.gif"></p>
+<p>Let&#39;s now focus on creating a more appealing experience than just a simple <strong>Text</strong> widget.</p>
+<h2 is-upgraded>GDG Community Goal Widget</h2>
+<p class="image-container"><img alt="Main Screen" src="img/f3ef6e66f2fd7d26.png"></p>
+<p>Start by creating a class called <strong>GDGCommunityGoal</strong> that extends <strong>StatelessWidget</strong>; return a <strong>Column</strong> widget from its overridden <strong>build</strong> method where its children are center-aligned both horizontally and vertically:</p>
+<p class="image-container"><img alt="Main Screen" src="img/d33d24aa5bed1e29.png"></p>
+<p>As the first child of the <strong>Column</strong>, add a &#34;Congrats&#34; <strong>Text</strong> widget, 30px font side, using <strong>Utils.mainColor</strong> as the color, followed by a <strong>SizedBox</strong> 5px height for spacing:</p>
+<p class="image-container"><img alt="Main Screen" src="img/f4ed01d4b6bd6a36.png"></p>
+<p>Follow that up with yet another <strong>Text</strong> widget with the following specs:</p>
+<ul>
+<li>color: Utils.mainColor</li>
+<li>fontSize: 50</li>
+<li>content: ‘We dit it!&#39;</li>
+</ul>
+<p>Add right underneath it another <strong>SizedBox</strong>, 20px height:</p>
+<p class="image-container"><img alt="Main Screen" src="img/a4a28e062539d08.png"></p>
+<p>And now conclude this widget by adding a giant <strong>Icon</strong> widget as the last child of the <strong>Column</strong>, with 100px in size, color  <strong>Utils.mainColor</strong>. Make sure to seal off the <strong>children</strong> collection property of the <strong>Column</strong> by decorating it with <strong>const</strong> since all of these are hard-coded widgets.</p>
+<p class="image-container"><img alt="Main Screen" src="img/59d731f86b3e8396.png"></p>
+<p>Let&#39;s go ahead and make use of this newly created widget.</p>
+<p>Back to the <strong>GDGCommunitySupport</strong> page, find the placeholder <strong>Text</strong> displaying the goal message inside the goal-checking if statement, and replace it with our newly created  <strong>GDGCommunityGoal</strong> widget, as such:</p>
+<p class="image-container"><img alt="Main Screen" src="img/1fe9179d6cfb66d8.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bringing it all together" duration="0">
+        <p>Right now we&#39;re loading right into the <strong>GDGCommunitySupport</strong> widget page, but our landing page is really our <strong>GDGCommunityHome</strong>, from which we need to navigate to this one.</p>
+<p>Let&#39;s go back to our <strong>GDGCommunityHome</strong> widget page, and to our <strong>Scaffold</strong> widget, let&#39;s add a floating action button widget, that when tapped, it takes us right to the <strong>GDGCommunitySupport</strong>. Add a <strong>FloatingActionButton</strong> widget with the following specs:</p>
+<ul>
+<li>backgroundColor: Utils.secondaryColor</li>
+<li>child: an <strong>Icon</strong> widget (Icons.chat_bubble), color white</li>
+<li>onPressed: use this event to navigate to the <strong>GDGCommunitySupport</strong> by using the <strong>Navigator.of</strong> and a <strong>MaterialPageRoute</strong></li>
+</ul>
+<p>The code will look like this:</p>
+<p class="image-container"><img alt="Main Screen" src="img/2ccad41541577087.png"></p>
+<aside class="special"><p>Don&#39;t forget to undo the change we made in <strong>GDGApp</strong> to point back to the <strong>GDGCommunityHome</strong> widget page.</p>
+</aside>
+<p class="image-container"><img alt="Main Screen" src="img/cd2abd32fcedfbb2.png"></p>
+<p>And that should do it for this application! Use this app to engage your community in collaborative work and team effort in not only learning Flutter, but in reaching our goals, so click away and have fun!</p>
+<p>Hope you liked this codelab as much as I did putting it together.</p>
+<p>Cheers, and thank you all!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Wrap-up" duration="0">
+        <p>In this codelab, we accomplished the following:</p>
+<ul>
+<li>Created a Firebase project and interact with the Firebase Console</li>
+<li>Set up your Cloud Firestore database and pre-seeded it with data</li>
+<li>Set up your Firebase configuration in your Flutter project (DartPad)</li>
+<li>Created a landing page (<strong>GDGCommunityHome</strong>)</li>
+<li>Created custom widgets (<strong>GDGCommunitySupportMeter</strong>, <strong>GDGCommunityGoal</strong>, etc.)</li>
+<li>Learned about collections and documents in Firebase</li>
+<li>Implemented one-time fetching of data from Firebase using <strong>.get()</strong> and <strong>FutureBuilder</strong></li>
+<li>Mapping Firebase data into PODO (Plain Ol&#39; Dart Objects)</li>
+<li>Created utility methods in the <strong>Utils</strong> class for reusing and sharing code througout</li>
+<li>Implemented real-time message receipt using <strong>Streams</strong> and <strong>StreamBuilder</strong></li>
+</ul>
+<h3 is-upgraded>Please don&#39;t forget to follow me on social media:</h3>
+<ul>
+<li>On Twitter (<a href="https://www.twitter.com/drcoderz" target="_blank">@drcoderz</a>)</li>
+<li>On YouTube (<a href="https://www.youtube.com/channel/UCKsp3r1ERjCpKJtD2n5WtPg" target="_blank">Roman Just Codes</a>)</li>
+<li>On My <a href="https://romanjustcodes.web.app/#/home" target="_blank">Personal Portfolio</a></li>
+<li>On <a href="https://medium.com/@romanejaquez" target="_blank">Medium</a></li>
+<li>On <a href="https://www.linkedin.com/in/roman-jaquez-8941a424/" target="_blank">LinkedIn</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Complete Code" duration="0">
+        <pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+import &#39;package:google_fonts/google_fonts.dart&#39;;
+import &#39;package:firebase_core/firebase_core.dart&#39;;
+import &#39;package:cloud_firestore/cloud_firestore.dart&#39;;
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: &#34;AIzaSyA6H1jOIFt9e7V4h_CrlcGXzk0px36g_XM&#34;,
+      authDomain: &#34;gdg-community-app-c5120.firebaseapp.com&#34;,
+      projectId: &#34;gdg-community-app-c5120&#34;,
+      storageBucket: &#34;gdg-community-app-c5120.appspot.com&#34;,
+      messagingSenderId: &#34;884593610503&#34;,
+      appId: &#34;1:884593610503:web:436620635a564cc32e3fa2&#34;
+    )
+  );
+
+  runApp(GDGApp());
+}
+
+class GDGApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme
+        )
+      ),
+      home: GDGCommunityHome()
+    );
+  }
+}
+
+class GDGCommunityHome extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.grey),
+        title: Image.network(Utils.appBarIcon, 
+          width: 40, height: 40, fit: BoxFit.contain)
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 20),
+              child:  Image.network(Utils.gdgCommunityLogoBlue,
+                width: 200, height: 200, fit: BoxFit.contain             
+              ),
+            ),
+            Container(
+              color: Utils.lightMainColor,
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: const [
+                  Icon(Icons.people, size: 30, color: Utils.mainColor),
+                  SizedBox(width: 10),
+                  Text(&#39;Meet the Team&#39;, 
+                    style: TextStyle(color: Utils.mainColor, fontSize: 20)
+                  )
+                ]
+              )
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future: FirebaseFirestore.instance.collection(&#39;team&#39;).get(),
+                builder: (context, snapshot) {
+                  
+                  if (snapshot.hasData) {
+                    List&lt;QueryDocumentSnapshot&gt; memberDocs = (snapshot.data as QuerySnapshot).docs;
+                    
+                    List&lt;TeamMember&gt; members = memberDocs.map(
+                      (doc) =&gt; TeamMember.fromJson(doc.data() as Map&lt;String, dynamic&gt;)
+                    ).toList();
+
+                    return TeamMemberList(members: members);                   
+                  }
+
+                  return const Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 5,
+                        valueColor: AlwaysStoppedAnimation&lt;Color&gt;(Utils.mainColor)
+                      )
+                    )
+                  );
+                }
+              )
+            )
+          ]
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) =&gt; GDGCommunitySupport())
+          );
+        },
+        backgroundColor: Utils.secondaryColor,
+        child: const Icon(Icons.chat_bubble, color: Colors.white),
+      ),
+    );
+  }
+}
+
+class GDGCommunitySupport extends StatelessWidget {
+  
+  final int messagesGoal = 300;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.grey),
+        title: Image.network(Utils.appBarIcon, 
+          width: 40, height: 40, fit: BoxFit.contain)
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(&#39;Community Meter&#39;,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Utils.mainColor, fontSize: 30)  
+            ),
+            
+            Text(&#39;Goal: $messagesGoal Messages&#39;,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Utils.mainColor, fontSize: 15)  
+            ),
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance.collection(&#39;community_support_meter&#39;).snapshots(),
+                builder: (context, snapshot) {
+                  
+                  if (snapshot.hasData) {
+                    List&lt;QueryDocumentSnapshot&gt; messages = 
+                      (snapshot.data as QuerySnapshot).docs;
+
+                    if (messages.length &gt;= messagesGoal) {
+                      return GDGCommunityGoal();
+                    }
+
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: GDGCommunitySupportMeter(count: messages.length)
+                        ),
+                        const SizedBox(height: 40),
+                        GDGCommunityButton(
+                          label: &#39;Send Message!&#39;,
+                          icon: Icons.send,
+                          onTap: () {
+                            FirebaseFirestore.instance.collection(&#39;community_support_meter&#39;).add({
+                              &#39;message&#39;: &#39;I love Flutter!&#39;
+                            });
+                          }
+                        )
+                      ]
+                    );
+                  }
+
+                  return const SizedBox();
+                }
+              )
+            )
+          ]
+        )
+      )
+    );
+  }
+}
+
+class GDGCommunityGoal extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Text(&#39;Congrats!&#39;,
+          style: TextStyle(color: Utils.mainColor, fontSize: 30)    
+        ),
+        SizedBox(height: 5),
+        Text(&#39;We did it!&#39;,
+          style: TextStyle(color: Utils.mainColor, fontSize: 50)    
+        ),
+        SizedBox(height: 20),
+        Icon(Icons.thumb_up, size: 100, color: Utils.mainColor)
+      ],
+    );
+  }
+}
+
+class GDGCommunitySupportMeter extends StatelessWidget {
+  
+  final int? count;
+  
+  const GDGCommunitySupportMeter({ this.count = 0 });
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: 150, height: 150,
+          child: Stack(
+            children: [
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 12),
+                  child: const Icon(
+                    Icons.chat_bubble, 
+                    color: Utils.mainColor, size: 150
+                  )
+                )
+              ),
+              Center(
+                child: Text(
+                  count!.toString(), 
+                  style: const TextStyle(
+                    color: Colors.white, fontSize: 60, fontWeight: FontWeight.bold
+                  )
+                )
+              )
+            ]
+          )
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 20, bottom: 20),
+          child: const Text(&#39;Messages\nIn Firebase&#39;, 
+            textAlign: TextAlign.center, 
+            style: TextStyle(color: Utils.mainColor)
+          )
+        ),
+        Container(
+          width: 200,
+          height: count!.toDouble(),
+          decoration: const BoxDecoration(
+            color: Utils.mainColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30),
+            )
+          )
+        ),
+        Container(
+          height: 10,
+          color: Utils.mainColor
+        )
+      ]
+    );
+  }
+}
+
+class GDGCommunityButton extends StatelessWidget {
+  
+  final String? label;
+  final Function? onTap;
+  final IconData? icon;
+  
+  const GDGCommunityButton({ this.label, this.onTap, this.icon });
+  
+  @override
+  Widget build(BuildContext context) {
+     return Material(
+       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+       color: Utils.secondaryColor,
+       child: InkWell(
+          onTap: () { onTap!(); },
+          highlightColor: Utils.lightMainColor,
+          splashColor: Utils.lightMainColor,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(label!, style: const TextStyle(fontSize: 20, color: Colors.white)),
+                const SizedBox(width: 10),
+                Icon(icon!, color: Colors.white, size: 30)
+              ]
+            )
+        )
+      )
+     );
+  }
+}
+
+class TeamMemberCard extends StatelessWidget {
+  
+  final TeamMember? member;
+  
+  const  TeamMemberCard({ this.member });
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
+      child: Row(
+        children: [
+          ClipOval(
+            child: Image.network(member!.photoUrl!,
+              width: 50, height: 50, fit: BoxFit.cover
+            )
+          ),
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(member!.fullName!, 
+                style: const TextStyle(color: Utils.mainColor, fontSize: 25)
+              ),
+              Text(member!.title!, 
+                style: const TextStyle(color: Colors.grey, fontSize: 15)
+              ),
+            ]
+          )
+        ]
+      )
+    );
+  }
+}
+
+class TeamMemberList extends StatelessWidget {
+  
+  final List&lt;TeamMember&gt;? members;
+  
+  const TeamMemberList({ this.members });
+  
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: members!.length,
+      itemBuilder: (context, index) {
+
+        TeamMember member = members![index];
+        return TeamMemberCard(member: member);
+      }
+    );
+  }
+}
+
+class TeamMember {
+  
+  String? fullName;
+  String? photoUrl;
+  String? title;
+  
+  TeamMember({ this.fullName, this.photoUrl, this.title });
+  
+  factory TeamMember.fromJson(Map&lt;String, dynamic&gt; json) {
+    return TeamMember(
+      fullName: json[&#39;fullName&#39;],
+      photoUrl: json[&#39;photoUrl&#39;],
+      title: json[&#39;title&#39;]
+    );
+  }
+}
+
+class Utils {
+  static const Color mainColor = Color(0xFF0C3F9F);
+  static const Color lightMainColor = Color(0xFFF2F6FF);
+  static const Color secondaryColor = Color(0xFF6B9EFA);
+
+  static String appBarIcon = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdglogo_grey.png&#39;;
+  static String gdgCommunityLogoWhite = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdgcommunity_white.png&#39;;
+  static String gdgCommunityLogoBlue = &#39;https://romanejaquez.github.io/hello-flutter-web/assets/gdgcommunity_blue.png&#39;;
+}
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="BONUS 1: Implementing a Splash Screen" duration="0">
+        <p class="image-container"><img alt="Main Screen" src="img/9a940c4ac07d8964.gif"></p>
+<p>This is a bonus step only for those of you who&#39;d like to add a splash screen. Not required - this is just a nice to have.</p>
+<p>The following code represents a splash screen that you can incorporate into your app. It displays a background with the GDG white logo in the middle with a circular progress indicator; after a 2-sec delay, it transitions to the <strong>GDGCommunityHome</strong> page.</p>
+<p>1 - Copy / paste the code into the existing app (anywhere in the file is fine):</p>
+<pre><code language="language-flutter" class="language-flutter">class GDGCommunitySplash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    
+    Future.delayed(const Duration(seconds: 2), () {
+       Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) =&gt; GDGCommunityHome())
+       );
+    });
+    
+    return Scaffold(
+      backgroundColor: Utils.mainColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(Utils.gdgCommunityLogoWhite,
+              width: 200, height: 200, fit: BoxFit.contain             
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
+                valueColor: AlwaysStoppedAnimation&lt;Color&gt;(Colors.white.withOpacity(0.5))
+              )
+            )
+          ]
+        )
+      )
+    );
+  }
+}
+</code></pre>
+<p>2 - Go to the <strong>GDGApp</strong> page, and replace the <strong>GDGCommunityHome</strong> in the <strong>MaterialApp</strong>&#39;s <strong>home</strong> property by the newly created <strong>GDGCommunitySplash</strong>, as follows:</p>
+<pre><code language="language-flutter" class="language-flutter">class GDGApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme
+        )
+      ),
+      home: GDGCommunitySplash() // GDGCommunityHome()
+    );
+  }
+}
+</code></pre>
+<p>And that&#39;s it!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="BONUS 2: Animated Goal Page" duration="0">
+        <p>This is another nice to have, in which I animated the elements in the <strong>GDGCommunityGoal</strong> widget. When the goal is reached, the widget shows the text using a sliding and fading transition, and the thumb icon shows a slight shaking animation. Check it out:</p>
+<p class="image-container"><img alt="Main Screen" src="img/9fb5eabe4a4e69.gif"></p>
+<p>1 - Replace the existing <strong>GDGCommunityGoal</strong> widget by this two-part widget since this is a <strong>StatefulWidget</strong>:</p>
+<pre><code language="language-flutter" class="language-flutter">class GDGCommunityGoal extends StatefulWidget {
+  
+  @override
+  GDGCommunityGoalState createState() =&gt; GDGCommunityGoalState();
+}
+
+class GDGCommunityGoalState extends State&lt;GDGCommunityGoal&gt; with TickerProviderStateMixin {
+  
+  AnimationController? controller;
+  AnimationController? textController;
+  
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this
+    )..repeat(reverse: true);
+    
+    textController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this
+    )..forward();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        FadeTransition(
+          opacity: Tween&lt;double&gt;(begin: 0.0, end: 1.0)
+          .animate(CurvedAnimation(parent: textController!, curve: Curves.easeInOut)),
+          child: SlideTransition(
+            position: Tween&lt;Offset&gt;(begin: const Offset(0.0, 0.25), end: const Offset(0.0, -0.25))
+            .animate(CurvedAnimation(parent: textController!, curve: Curves.easeInOut)),
+            child: Column(
+              children: const [
+                Text(&#39;Congrats!&#39;,
+                      style: TextStyle(color: Utils.mainColor, fontSize: 30)    
+                    ),
+                SizedBox(height: 5),
+                Text(&#39;We did it!&#39;,
+                      style: TextStyle(color: Utils.mainColor, fontSize: 50)    
+                    ),
+              ]
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        ScaleTransition(
+          scale: Tween&lt;double&gt;(begin: 1.0, end: 1.25)
+          .animate(CurvedAnimation(parent: controller!, curve: Curves.easeInOut)),
+          child: RotationTransition(
+            turns: Tween&lt;double&gt;(begin: -0.05, end: 0.05)
+            .animate(CurvedAnimation(parent: controller!, curve: Curves.easeInOut)),
+            child: const Icon(Icons.thumb_up, size: 100, color: Utils.mainColor)
+          )
+        )
+      ]
+    );
+  }
+}
+
+</code></pre>
+<p>And that&#39;s it! You got an animated version of the goal widget, which gives it a nice touch.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="BONUS 3: Glowing Floating Action Button" duration="0">
+        <p>This is another bonus section, if you want to just bring more pizzazz to  your app; I made the floating action button a pulsating / glowing button, not using the <strong>FloatingActionButton</strong> widget at all, but rather my own, using some explicit animation widgets. Check out the glowing action button (in action):</p>
+<p class="image-container"><img alt="Main Screen" src="img/b9800a6e5bc941b.gif"></p>
+<p>This is also a two-part class since it&#39;s a <strong>StatefulWidget</strong>.</p>
+<p>1 - Copy the following code into your complete project (anywhere at the bottom is fine):</p>
+<pre><code language="language-flutter" class="language-flutter">class GlowingButton extends StatefulWidget {
+  
+  final Function? onTap;
+  
+  const GlowingButton({ this.onTap });
+  @override
+  GlowingButtonState createState() =&gt; GlowingButtonState();
+}
+
+class GlowingButtonState extends State&lt;GlowingButton&gt; with TickerProviderStateMixin {
+  
+  AnimationController? glowingController;
+  
+  @override
+  void initState() {
+    super.initState();
+    
+    glowingController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.onTap!();
+      },
+      child: Container(
+        margin: const EdgeInsets.all(20),
+        child: Stack(
+          children: [
+            ScaleTransition(
+              scale: Tween&lt;double&gt;(begin: 1.0, end: 1.5)
+              .animate(CurvedAnimation(parent: glowingController!, curve: Curves.easeInOut)),
+              child: FadeTransition(
+                opacity: Tween&lt;double&gt;(begin: 1.0, end: 0.0)
+                .animate(CurvedAnimation(parent: glowingController!, curve: Curves.easeInOut)),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Utils.secondaryColor.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  width: 80,
+                  height: 80,
+                ),
+              )
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Utils.secondaryColor,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: [
+                  BoxShadow(blurRadius: 15, offset: Offset.zero, color: Utils.secondaryColor.withOpacity(0.8))
+                ]
+              ),
+              width: 80,
+              height: 80,
+              child: const Icon(Icons.textsms, color: Colors.white, size: 30)
+            )
+          ]
+        )
+      )
+    );
+  }
+}
+
+</code></pre>
+<p>2 - Replace the existing floating action button in the <strong>Scaffold</strong> of the <strong>GDGCommunityHome</strong> page by this one, as follows:</p>
+<pre><code language="language-flutter" class="language-flutter">// ... rest of the code omitted for brevity
+
+floatingActionButton: GlowingButton(
+  onTap: () {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) =&gt; GDGCommunitySupport())
+    );
+  },
+)
+
+</code></pre>
+<p>And you should be good to go! Thanks for sticking around.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+  <script>
+    $(function() {
+      $('#done').removeAttr('href');
+      $('#done').css('cursor', 'pointer');
+      $('#done').click(function () { 
+        window.location.href = 'https://romanjustcodes.web.app/#/workshops';
+      });
+    });
+  </script>
+</body>
+</html>
